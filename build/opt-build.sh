@@ -48,7 +48,7 @@ export PATH=${INST_PATH}/bin:$PATH
 #Seems to be required by R
 echo "deb http://security.ubuntu.com/ubuntu xenial-security main" | tee --append /etc/apt/sources.list
 apt-get update
-apt-get install libicu55
+apt-get --force-yes install  libicu55
 #Now fetch and install R 3.3.0
 curl -sSL --retry 10 https://cran.rstudio.com/src/base/R-3/R-3.3.0.tar.gz > R-3.3.0.tar.gz
 tar -zxf R-3.3.0.tar.gz
