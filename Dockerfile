@@ -30,6 +30,7 @@ libreadline-dev \
 libpcre3 \
 libpcre3-dev \
 r-base \
+wget \
 python-pip \
 python-setuptools \
 python-dev
@@ -79,7 +80,6 @@ libncurses5 \
 p11-kit \
 r-base \
 python \
-wget \
 unattended-upgrades && \
 unattended-upgrade -d -v && \
 apt-get remove -yq unattended-upgrades && \
