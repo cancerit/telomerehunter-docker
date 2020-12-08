@@ -49,7 +49,7 @@ export PATH=${INST_PATH}/bin:$PATH
 curl -sSL --retry 10 https://cran.rstudio.com/src/base/R-3/R-3.3.0.tar.gz > R-3.3.0.tar.gz
 tar -zxf R-3.3.0.tar.gz
 cd R-3.3.0
-./configure --prefix=$INST_PATH --with-cairo=yes --enable-R-shlib --with-x=no
+./configure --prefix=$INST_PATH --with-cairo=yes --with-x=no
 make
 make check
 make install
