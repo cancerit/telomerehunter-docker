@@ -79,6 +79,7 @@ libncurses5 \
 p11-kit \
 r-base \
 python \
+wget \
 unattended-upgrades && \
 unattended-upgrade -d -v && \
 apt-get remove -yq unattended-upgrades && \
