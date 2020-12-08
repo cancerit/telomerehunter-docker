@@ -31,6 +31,8 @@ libpcre3 \
 libpcre3-dev \
 r-base \
 wget \
+libncurses5-dev \
+libncursesw5-dev \
 python-pip \
 python-setuptools \
 python-dev
