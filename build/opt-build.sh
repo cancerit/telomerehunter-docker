@@ -46,7 +46,7 @@ make install
 cd $INIT_DIR
 export PATH=${INST_PATH}/bin:$PATH
 #Seems to be required by R
-echo "deb http://security.ubuntu.com/ubuntu xenial-security main" | sudo tee --append /etc/apt/sources.list
+echo "deb http://security.ubuntu.com/ubuntu xenial-security main" | tee --append /etc/apt/sources.list
 apt-get update
 apt-get install libicu55
 #Now fetch and install R 3.3.0
