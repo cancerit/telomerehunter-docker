@@ -53,9 +53,10 @@ cd R-3.3.0
 make
 make check
 make install
-
-
-
+echo "deb http://security.ubuntu.com/ubuntu xenial-security main" | sudo tee --append /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install libicu55
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu/
 
 export R_LIBS=$INST_PATH/R-lib
 export R_LIBS_USER=$R_LIBS
