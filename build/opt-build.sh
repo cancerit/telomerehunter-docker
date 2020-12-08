@@ -40,6 +40,7 @@ cd $INST_PATH
 wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2
 tar -vxjf samtools-1.9.tar.bz2
 cd samtools-1.9
+./configure --prefix=$INST_PATH
 make
 make install
 cd $INIT_DIR
