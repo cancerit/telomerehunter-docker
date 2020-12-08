@@ -41,6 +41,7 @@ wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar
 tar -vxjf samtools-1.9.tar.bz2
 cd samtools-1.9
 make
+make install
 cd $INIT_DIR
 export PATH=${INST_PATH}/bin:$PATH
 #Now fetch and install R 3.3.0
