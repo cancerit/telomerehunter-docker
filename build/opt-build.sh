@@ -30,7 +30,6 @@ pip install --prefix=$INST_PATH pysam==0.9.0 PyPDF2==1.26.0 telomerehunter
 
 # Install samtools and hts-lib
 cd $INST_PATH
-mkdir $INST_PATH/bin
 wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2
 tar -vxjf htslib-1.9.tar.bz2
 cd htslib-1.9
