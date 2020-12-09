@@ -46,20 +46,19 @@ make install
 cd $INIT_DIR
 export PATH=${INST_PATH}/bin:$PATH
 #Seems to be required by R
-echo "deb http://security.ubuntu.com/ubuntu xenial-security main" | tee --append /etc/apt/sources.list
-apt-get update
-apt-get --force-yes install  libicu55
+#echo "deb http://security.ubuntu.com/ubuntu xenial-security main" | tee --append /etc/apt/sources.list
+#apt-get update
+#apt-get --force-yes install  libicu55
 #Now fetch and install R 3.3.0
-curl -sSL --retry 10 https://cran.rstudio.com/src/base/R-3/R-3.3.0.tar.gz > R-3.3.0.tar.gz
-tar -zxf R-3.3.0.tar.gz
-cd R-3.3.0
-./configure --prefix=$INST_PATH --with-cairo=yes --with-x=no
-make
-make check
-make install
-
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu/
-
+#curl -sSL --retry 10 https://cran.rstudio.com/src/base/R-3/R-3.3.0.tar.gz > R-3.3.0.tar.gz
+#tar -zxf R-3.3.0.tar.gz
+#cd R-3.3.0
+#./configure --prefix=$INST_PATH --with-cairo=yes --with-x=no
+#make check
+#make
+#make install
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu/
+apt install -yq r-base
 export R_LIBS=$INST_PATH/R-lib
 export R_LIBS_USER=$R_LIBS
 
