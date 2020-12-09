@@ -27,7 +27,7 @@ echo $INST_PATH
 INIT_DIR=`pwd`
 
 pip install --prefix=$INST_PATH pysam==0.9.0 PyPDF2==1.26.0 telomerehunter
-
+#
 # Check R is installed properly
 R --version
 
