@@ -28,6 +28,9 @@ INIT_DIR=`pwd`
 
 pip install --prefix=$INST_PATH pysam==0.9.0 PyPDF2==1.26.0 telomerehunter
 
+# Check R is installed properly
+R --version
+
 # Install samtools and hts-lib
 cd $INST_PATH
 wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2
@@ -58,10 +61,13 @@ export PATH=${INST_PATH}/bin:$PATH
 #make
 #make install
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu/
-apt install -yq r-base
+#apt install -yq r-base
+#apt update
+#apt install -yq r-base
 export R_LIBS=$INST_PATH/R-lib
 export R_LIBS_USER=$R_LIBS
-
+mkdir $R_LIBS
 #Add the relevant packages
 cd $INIT_DIR
 Rscript $SCRIPT_PATH/libInstall.R $R_LIBS_USER 2>&1 | grep '^\*'
+ls $R_LIBS
