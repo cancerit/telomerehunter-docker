@@ -2,7 +2,7 @@ FROM ubuntu:18.04 as builder
 
 USER root
 
-ARG DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 ENV OPT /opt/wtsi-cgp
 ENV PATH $OPT/bin:$PATH
@@ -10,6 +10,8 @@ ENV LD_LIBRARY_PATH $OPT/lib
 ENV LC_ALL C
 
 RUN apt-get -yq update
+ENV TZ=Europe/London
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get install -yq --no-install-recommends \
 locales \
 build-essential \
@@ -29,8 +31,10 @@ libssh2-1-dev \
 libreadline-dev \
 libpcre3 \
 libpcre3-dev \
-r-base \
+libfontconfig1-dev \
+libcairo2-dev \
 wget \
+r-base \
 libncurses5-dev \
 libncursesw5-dev \
 python-pip \
@@ -58,8 +62,8 @@ ADD build/libInstall.R build/
 RUN bash build/opt-build.sh $OPT
 
 
-FROM ubuntu:16.04
-
+FROM ubuntu:18.04
+ENV DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="cgphelp@sanger.ac.uk" \
       uk.ac.sanger.cgp="Cancer, Ageing and Somatic Mutation, Wellcome Trust Sanger Institute" \
       version="3.3.0" \

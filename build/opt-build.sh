@@ -69,5 +69,6 @@ export R_LIBS_USER=$R_LIBS
 mkdir $R_LIBS
 #Add the relevant packages
 cd $INIT_DIR
-Rscript $SCRIPT_PATH/libInstall.R $R_LIBS_USER 2>&1 | grep '^\*'
+#Rscript $SCRIPT_PATH/libInstall.R $R_LIBS_USER 2>&1 | grep '^\*'
+Rscript $SCRIPT_PATH/libInstall.R $R_LIBS_USER 2>&1 
 ls $R_LIBS
