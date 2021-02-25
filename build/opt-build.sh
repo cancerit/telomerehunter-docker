@@ -27,19 +27,48 @@ echo $INST_PATH
 INIT_DIR=`pwd`
 
 pip install --prefix=$INST_PATH pysam==0.9.0 PyPDF2==1.26.0 telomerehunter
+#
+# Check R is installed properly
+R --version
 
-#Now fetch and install R 3.3.0
-curl -sSL --retry 10 https://cran.rstudio.com/src/base/R-3/R-3.3.0.tar.gz > R-3.3.0.tar.gz
-tar -zxf R-3.3.0.tar.gz
-cd R-3.3.0
-./configure --prefix=$INST_PATH --with-cairo=yes --enable-R-shlib --with-x=no
+# Install samtools and hts-lib
+cd $INST_PATH
+wget https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2
+tar -vxjf htslib-1.9.tar.bz2
+cd htslib-1.9
+./configure --prefix=$INST_PATH
 make
-make check
 make install
-
+cd $INST_PATH
+wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2
+tar -vxjf samtools-1.9.tar.bz2
+cd samtools-1.9
+./configure --prefix=$INST_PATH
+make
+make install
+cd $INIT_DIR
+export PATH=${INST_PATH}/bin:$PATH
+#Seems to be required by R
+#echo "deb http://security.ubuntu.com/ubuntu xenial-security main" | tee --append /etc/apt/sources.list
+#apt-get update
+#apt-get --force-yes install  libicu55
+#Now fetch and install R 3.3.0
+#curl -sSL --retry 10 https://cran.rstudio.com/src/base/R-3/R-3.3.0.tar.gz > R-3.3.0.tar.gz
+#tar -zxf R-3.3.0.tar.gz
+#cd R-3.3.0
+#./configure --prefix=$INST_PATH --with-cairo=yes --with-x=no
+#make check
+#make
+#make install
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu/
+#apt install -yq r-base
+#apt update
+#apt install -yq r-base
 export R_LIBS=$INST_PATH/R-lib
 export R_LIBS_USER=$R_LIBS
-
+mkdir $R_LIBS
 #Add the relevant packages
 cd $INIT_DIR
-Rscript $SCRIPT_PATH/libInstall.R $R_LIBS_USER 2>&1 | grep '^\*'
+#Rscript $SCRIPT_PATH/libInstall.R $R_LIBS_USER 2>&1 | grep '^\*'
+Rscript $SCRIPT_PATH/libInstall.R $R_LIBS_USER 2>&1 
+ls $R_LIBS
