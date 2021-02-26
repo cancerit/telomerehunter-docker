@@ -1,5 +1,12 @@
 FROM ubuntu:18.04 as builder
 
+ARG VER_TELOMEREHUNTER=1.1.0
+ARG VER_PYPDF2=1.26.0
+ARG VER_PYSAM=0.9.0
+ARG VER_HTSLIB=1.9
+ARG VER_SAMTOOLS=1.9
+
+
 USER root
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -54,7 +61,7 @@ ENV R_LIBS_USER $R_LIBS
 ENV PYTHONPATH $OPT/python-lib/lib/python2.7/site-packages
 
 RUN pip install --upgrade pip
-RUN pip install wheel cython 
+RUN pip install wheel cython
 
 # build tools from other repos
 ADD build/opt-build.sh build/
