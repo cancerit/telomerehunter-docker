@@ -35,7 +35,7 @@ install_version("gridExtra", version = "2.2.1", repos = "http://cran.uk.r-projec
 install_version("RColorBrewer", version = "1.1-2", repos = "http://cran.uk.r-project.org")
 install_version("cowplot", version = "0.9.2", repos = "http://cran.uk.r-project.org")
 install_version("svglite", version = "1.2.1", repos = "http://cran.uk.r-project.org")
-
+install_version("dplyr", version = "1.0.2", repos = "http://cran.uk.r-project.org")
 # ggplot2 2.1.0
 # reshape2 1.4.1
 # gridExtra 2.2.1

@@ -1,8 +1,15 @@
-FROM ubuntu:16.04 as builder
+FROM ubuntu:18.04 as builder
+
+ARG VER_TELOMEREHUNTER=1.1.0
+ARG VER_PYPDF2=1.26.0
+ARG VER_PYSAM=0.9.0
+ARG VER_HTSLIB=1.9
+ARG VER_SAMTOOLS=1.9
+
 
 USER root
 
-ARG DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 ENV OPT /opt/wtsi-cgp
 ENV PATH $OPT/bin:$PATH
@@ -10,6 +17,8 @@ ENV LD_LIBRARY_PATH $OPT/lib
 ENV LC_ALL C
 
 RUN apt-get -yq update
+ENV TZ=Europe/London
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt-get install -yq --no-install-recommends \
 locales \
 build-essential \
@@ -29,7 +38,12 @@ libssh2-1-dev \
 libreadline-dev \
 libpcre3 \
 libpcre3-dev \
+libfontconfig1-dev \
+libcairo2-dev \
+wget \
 r-base \
+libncurses5-dev \
+libncursesw5-dev \
 python-pip \
 python-setuptools \
 python-dev
@@ -47,7 +61,7 @@ ENV R_LIBS_USER $R_LIBS
 ENV PYTHONPATH $OPT/python-lib/lib/python2.7/site-packages
 
 RUN pip install --upgrade pip
-RUN pip install wheel cython 
+RUN pip install wheel cython
 
 # build tools from other repos
 ADD build/opt-build.sh build/
@@ -55,8 +69,8 @@ ADD build/libInstall.R build/
 RUN bash build/opt-build.sh $OPT
 
 
-FROM ubuntu:16.04
-
+FROM ubuntu:18.04
+ENV DEBIAN_FRONTEND=noninteractive
 LABEL maintainer="cgphelp@sanger.ac.uk" \
       uk.ac.sanger.cgp="Cancer, Ageing and Somatic Mutation, Wellcome Trust Sanger Institute" \
       version="3.3.0" \

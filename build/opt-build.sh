@@ -26,20 +26,32 @@ echo $INST_PATH
 # get current directory
 INIT_DIR=`pwd`
 
-pip install --prefix=$INST_PATH pysam==0.9.0 PyPDF2==1.26.0 telomerehunter
+pip install --prefix=$INST_PATH pysam==$VER_PYSAM PyPDF2==$VER_PYPDF2 telomerehunter==$VER_TELOMEREHUNTER
+#
+# Check R is installed properly
+R --version
 
-#Now fetch and install R 3.3.0
-curl -sSL --retry 10 https://cran.rstudio.com/src/base/R-3/R-3.3.0.tar.gz > R-3.3.0.tar.gz
-tar -zxf R-3.3.0.tar.gz
-cd R-3.3.0
-./configure --prefix=$INST_PATH --with-cairo=yes --enable-R-shlib --with-x=no
+# Install samtools and hts-lib
+cd $INST_PATH
+wget https://github.com/samtools/htslib/releases/download/${VER_HTSLIB}/htslib-${VER_HTSLIB}.tar.bz2
+tar -vxjf htslib-${VER_HTSLIB}.tar.bz2
+cd htslib-${VER_HTSLIB}
+./configure --prefix=$INST_PATH
 make
-make check
 make install
-
+cd $INST_PATH
+wget https://github.com/samtools/samtools/releases/download/${VER_SAMTOOLS}/samtools-${VER_SAMTOOLS}.tar.bz2
+tar -vxjf samtools-${VER_SAMTOOLS}.tar.bz2
+cd samtools-${VER_SAMTOOLS}
+./configure --prefix=$INST_PATH
+make
+make install
+cd $INIT_DIR
+export PATH=${INST_PATH}/bin:$PATH
 export R_LIBS=$INST_PATH/R-lib
 export R_LIBS_USER=$R_LIBS
-
+mkdir $R_LIBS
 #Add the relevant packages
 cd $INIT_DIR
-Rscript $SCRIPT_PATH/libInstall.R $R_LIBS_USER 2>&1 | grep '^\*'
+Rscript $SCRIPT_PATH/libInstall.R $R_LIBS_USER 2>&1
+ls $R_LIBS
